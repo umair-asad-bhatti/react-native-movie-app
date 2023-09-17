@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
@@ -7,11 +7,9 @@ import { useNavigation } from '@react-navigation/native';
 export default function HamburgerMenu() {
     const [isOpen, setIsOpen] = useState(false)
     const navigation = useNavigation()
-    const openMenu = () => {
-        setIsOpen(true)
-    }
-    const closeMenu = () => {
-        setIsOpen(false)
+
+    const toggleMenu = () => {
+        setIsOpen(!isOpen)
     }
     const goToHomeScreen = () => {
         navigation.navigate("HomeScreen")
@@ -21,19 +19,28 @@ export default function HamburgerMenu() {
         navigation.navigate("DiscoverScreen")
         setIsOpen(false)
     }
+    const goToSearchScreen = () => {
+        navigation.navigate("SearchScreen")
+        setIsOpen(false)
+    }
     return (
         <>
             <View style={styles.header_container}>
                 <View style={styles.header_menu}>
-                    <Ionicons onPress={openMenu} name="menu" size={30} color="white" />
-                    <Text style={styles.app_logo}>Movies Info</Text>
+                    <Ionicons onPress={toggleMenu} name="menu" size={32} color="white" />
+                    <TouchableOpacity onPress={goToHomeScreen}>
+                        <Image style={{ width: 35, height: 35 }} source={require("../assets/icon.png")} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={goToSearchScreen}>
+                        <Ionicons name="search-outline" size={30} color="white" />
+                    </TouchableOpacity>
                 </View>
             </View>
             {/* side menu */}
             <View style={[styles.side_menu, !isOpen ? styles.left500 : styles.show]}>
                 <View style={{ flex: 0.05, justifyContent: 'center', alignItems: 'flex-end', padding: 10 }}>
 
-                    <AntDesign onPress={closeMenu} name="closesquareo" size={30} color="white" />
+                    <AntDesign onPress={toggleMenu} name="closesquareo" size={30} color="white" />
                 </View>
                 <View style={{ marginTop: '50%', flex: 0.5, justifyContent: 'center', alignItems: 'center', gap: 10 }}>
                     <TouchableOpacity onPress={goToHomeScreen} style={styles.menu_item}>
@@ -48,13 +55,8 @@ export default function HamburgerMenu() {
     )
 }
 const styles = StyleSheet.create({
-    app_logo: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: 'red'
-    },
     header_container: {
-        height: 50,
+        height: 35,
         paddingHorizontal: 20,
 
     },
@@ -65,6 +67,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     side_menu: {
+
         flex: 1,
         position: 'absolute',
         top: 0,
@@ -73,6 +76,7 @@ const styles = StyleSheet.create({
         width: 200,
         zIndex: 99999,
         backgroundColor: '#28282B',
+
 
     },
     left500: {

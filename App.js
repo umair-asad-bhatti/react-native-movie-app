@@ -6,15 +6,15 @@ import HomeScreen from './screens/HomeScreen';
 import MovieDetailScreen from './screens/MovieDetailScreen';
 import DiscoverScreen from './screens/DiscoverScreen';
 import HamburgerMenu from './components/HamburgerMenu';
+import SearchScreen from './screens/SearchScreen';
 const Stack = createNativeStackNavigator();
 export default function App() {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
+      <StatusBar />
       <NavigationContainer>
         <HamburgerMenu />
-
         <Stack.Navigator>
           <Stack.Screen name='HomeScreen' component={HomeScreen} options={{ headerShown: false, animation: 'none' }} />
           <Stack.Screen name='MovieDetailScreen' component={MovieDetailScreen}
@@ -26,6 +26,7 @@ export default function App() {
               headerTintColor: 'white'
             }} />
           <Stack.Screen name='DiscoverScreen' component={DiscoverScreen} options={{ headerShown: false, animation: 'none' }} />
+          <Stack.Screen name='SearchScreen' component={SearchScreen} options={{ headerShown: false, animation: 'none' }} />
         </Stack.Navigator>
       </NavigationContainer>
     </View>

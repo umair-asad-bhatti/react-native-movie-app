@@ -1,27 +1,28 @@
 import { View, Text, StyleSheet, Image, ScrollView, Button, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
-
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { A } from '@expo/html-elements';
 import Loading from './Loading';
 import { useNavigation } from '@react-navigation/native';
+import utility from '../utility/utility';
 export default function MovieDetailScreen({ route }) {
     const { id } = route.params
     const [SingleMovieDetail, setSingleMovieDetail] = useState("")
+    const [movieTrailer, setMovieTrailer] = useState("")
     const [loading, setloading] = useState(true)
     const navigation = useNavigation()
+    // fetch the details of the movie along with youtube key for trailer
     useEffect(() => {
-        const fetchMovieDetail = async () => {
-            const response = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=115a80b1f5855a7a34cb5deeeefee1a2`)
-            const data = await response.json();
-            setSingleMovieDetail(data)
+        utility.fetchMovieDetail(id).then(r => {
+            setSingleMovieDetail(r)
             setloading(false)
-        }
-
-        fetchMovieDetail().then(r => console.log('Movie detail fetched'))
-
+        })
+        utility.fetchMovieTrailer(id).then(r => {
+            setMovieTrailer(r.results[0]?.key)
+        })
     }, [id])
+
     if (loading) {
         return (
             <Loading />
@@ -30,17 +31,13 @@ export default function MovieDetailScreen({ route }) {
     return (
         <ScrollView style={styles.movie_detail_screen_container}>
             <View style={{ flex: 1, marginTop: 20, padding: 10 }}>
-                <View style={{ paddingHorizontal: 40 }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
-                        <Text style={{ textAlign: 'center', color: 'white', borderWidth: 1, borderColor: 'red',paddingVertical:5,borderRadius:10 }}>Go back</Text>
-                    </TouchableOpacity>
 
-                </View>
                 <Image resizeMode='center' style={{ width: '100%', height: 400 }} source={{ uri: `https://image.tmdb.org/t/p/w500/${SingleMovieDetail.poster_path} ` }} />
                 <Text style={styles.movie_title} >{SingleMovieDetail.title}</Text>
                 <A style={{ ...styles.movie_title, fontSize: 12 }} href={SingleMovieDetail.homepage}>
                     {SingleMovieDetail.homepage}
                 </A>
+
                 <View style={styles.movie_genre_container}>
                     {
 
@@ -72,6 +69,14 @@ export default function MovieDetailScreen({ route }) {
                     </View>
                 </View>
                 <Text style={{ ...styles.color_gray, ...styles.movie_overview }}>{SingleMovieDetail.overview}</Text>
+                <A style={styles.movie_trailer_btn} href={`https://www.youtube.com/watch?v=${movieTrailer}`}>
+                    watch trailer
+                </A>
+                <View style={{ paddingHorizontal: 40 }}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Text style={{ textAlign: 'center', color: 'white', borderWidth: 1, borderColor: 'white', paddingVertical: 5, borderRadius: 10 }}>Go back</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </ScrollView >
     )
@@ -111,5 +116,22 @@ const styles = StyleSheet.create({
         fontSize: 14,
         marginTop: 20,
         paddingHorizontal: 40,
+    },
+    movie_trailer_btn: {
+        color: 'white',
+        fontWeight: 'bold',
+        marginVertical: 10,
+        marginHorizontal: 40,
+        borderWidth: 1,
+        borderColor: 'white',
+        textAlign: 'center',
+        paddingVertical: 10,
+        borderRadius: 10,
+        backgroundColor: '#28282B'
+
+
+
+
+
     }
 })

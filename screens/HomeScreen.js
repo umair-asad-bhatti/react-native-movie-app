@@ -1,43 +1,42 @@
-import { StyleSheet, FlatList, View, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, FlatList, View, Text, TouchableOpacity, TextInput } from 'react-native'
 import MovieCard from '../components/MovieCard'
 import Loading from './Loading';
 import React from 'react'
 import { useState, useEffect } from 'react';
+import utility from '../utility/utility';
+import { MaterialIcons } from '@expo/vector-icons';
+
 
 export default function HomeScreen({ navigation }) {
     const [movies, setMovies] = useState('');
     const [page, setPage] = useState(1)
     const [loading, setLoading] = useState(true)
     const nextPage = () => {
+
         setLoading(true)
         setPage((prev) => prev + 1)
-
-
     }
     const prevPage = () => {
-        setLoading(true)
-        setPage((prev) => prev - 1)
+        if (page > 1) {
+
+            setLoading(true)
+            setPage((prev) => prev - 1)
+        }
     }
     useEffect(() => {
-        const fetchMovies = async () => {
-            const response = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&api_key=115a80b1f5855a7a34cb5deeeefee1a2&page=${page}`)
-            const data = await response.json();
-            setMovies(data.results)
+        utility.fetchMovies(page).then(r => {
+            setMovies(r.results)
             setLoading(false)
-        }
-        fetchMovies().then(r => console.log('data fetched'))
+        })
     }, [page, loading])
-    if (loading) {
-        return (
-            <Loading />
-        )
-    }
 
+    if (loading) {
+        return (<Loading />)
+    }
     return (
 
         <View style={styles.HomeScreen_Container} >
             <View style={{ marginTop: 10, width: '100%', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-
                 < FlatList
                     numColumns={'4'}
                     data={movies}
@@ -50,38 +49,35 @@ export default function HomeScreen({ navigation }) {
 
             </View>
             <View style={styles.pagination}>
-                <View style={{ flex: 1, flexDirection: 'row', gap: 10 }}>
+                <View style={{ flex: 1, flexDirection: 'row', gap: 10, justifyContent: 'space-around', alignItems: 'center' }}>
                     {
-                        page > 1 &&
-                        <TouchableOpacity style={styles.btn_container} onPress={prevPage}>
-                            <Text style={{ color: 'gray' }}>Previous</Text>
+                        <TouchableOpacity onPress={prevPage}>
+                            <MaterialIcons name="navigate-before" size={30} color="white" />
+
                         </TouchableOpacity>
 
                     }
                     {
 
-                        page > 1 &&
-                        <TouchableOpacity style={styles.btn_container} onPress={() => setPage(1)}>
-                            <Text style={{ color: 'gray' }}>Go to first page</Text>
+
+                        <TouchableOpacity onPress={() => setPage(1)}>
+                            {/* <Text style={{ color: 'white' }}>Go to first page</Text> */}
+                            <Text style={{ color: 'white', marginTop: 3 }}>{page}</Text>
                         </TouchableOpacity>
 
                     }
+
                     {
 
-                        page >= 1 &&
-                        <TouchableOpacity style={styles.btn_container} onPress={nextPage}>
-                            <Text style={{ color: 'gray' }}>Next</Text>
+                        <TouchableOpacity onPress={nextPage}>
+                            <MaterialIcons name="navigate-next" size={30} color="white" />
                         </TouchableOpacity>
 
                     }
                 </View>
-                <View>
-                    <Text style={{ color: 'gray' }}>page = {page}</Text>
-                </View>
-
-
             </View>
         </View >
+
 
     )
 }
@@ -94,18 +90,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'black'
 
     },
-    btn_container: {
-        borderColor: 'gray',
-        borderWidth: 1,
-        padding: 5,
-        borderRadius: 10
-    },
     pagination: {
-        flex: 0.06,
+        flex: 0.05,
         margin: 10,
         justifyContent: 'center',
         alignItems: 'center',
         gap: 20,
-        flexDirection: 'row'
+        flexDirection: 'row',
+
     }
 })

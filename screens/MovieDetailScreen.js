@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { A } from '@expo/html-elements';
-import Loading from './Loading';
+import Loading from '../components/Loading';
 import { useNavigation } from '@react-navigation/native';
 import utility from '../utility/utility';//utility having helper functions
 export default function MovieDetailScreen({ route }) {

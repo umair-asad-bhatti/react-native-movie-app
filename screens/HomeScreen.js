@@ -1,6 +1,6 @@
 import { StyleSheet, FlatList, View, Text, TouchableOpacity, TextInput } from 'react-native'
 import MovieCard from '../components/MovieCard'
-import Loading from './Loading';
+import Loading from '../components/Loading';
 import React from 'react'
 import { useState, useEffect } from 'react';
 import utility from '../utility/utility';

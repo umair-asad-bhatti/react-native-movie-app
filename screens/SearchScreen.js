@@ -1,7 +1,7 @@
 import { View, Text, FlatList, StyleSheet, TextInput, ScrollView } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import MovieCard from '../components/MovieCard'
-import Loading from './Loading'
+import Loading from '../components/Loading'
 export default function SearchScreen() {
   const [searchQuery, setSetsearchQuery] = useState("")
   const [movies, setMovies] = useState([])

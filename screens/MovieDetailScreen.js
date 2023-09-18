@@ -1,11 +1,11 @@
-import { View, Text, StyleSheet, Image, ScrollView, Button, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { A } from '@expo/html-elements';
 import Loading from './Loading';
 import { useNavigation } from '@react-navigation/native';
-import utility from '../utility/utility';
+import utility from '../utility/utility';//utility having helper functions
 export default function MovieDetailScreen({ route }) {
     const { id } = route.params
     const [SingleMovieDetail, setSingleMovieDetail] = useState("")
@@ -32,7 +32,7 @@ export default function MovieDetailScreen({ route }) {
         <ScrollView style={styles.movie_detail_screen_container}>
             <View style={{ flex: 1, marginTop: 20, padding: 10 }}>
 
-                <Image resizeMode='center' style={{ width: '100%', height: 400 }} source={{ uri: `https://image.tmdb.org/t/p/w500/${SingleMovieDetail.poster_path} ` }} />
+                <Image resizeMode='cover' style={{ width: '100%', height: 400 }} source={{ uri: `https://image.tmdb.org/t/p/w500/${SingleMovieDetail.poster_path} ` }} />
                 <Text style={styles.movie_title} >{SingleMovieDetail.title}</Text>
                 <A style={{ ...styles.movie_title, fontSize: 12 }} href={SingleMovieDetail.homepage}>
                     {SingleMovieDetail.homepage}
@@ -72,7 +72,7 @@ export default function MovieDetailScreen({ route }) {
                 <A style={styles.movie_trailer_btn} href={`https://www.youtube.com/watch?v=${movieTrailer}`}>
                     watch trailer
                 </A>
-                <View style={{ paddingHorizontal: 40 }}>
+                <View >
                     <TouchableOpacity onPress={() => navigation.goBack()}>
                         <Text style={{ textAlign: 'center', color: 'white', borderWidth: 1, borderColor: 'white', paddingVertical: 5, borderRadius: 10 }}>Go back</Text>
                     </TouchableOpacity>
@@ -92,7 +92,6 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 20,
         marginTop: 20,
-        paddingHorizontal: 40,
     },
     movie_genre_container: {
         flex: 0.4,
@@ -100,38 +99,32 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: 4,
         marginTop: 5,
-        paddingHorizontal: 40,
+
 
     },
     movie_info_container: {
         flex: 0.2,
         flexDirection: 'row',
         gap: 20,
-        paddingHorizontal: 40,
+
     },
     color_gray: {
         color: 'gray'
     },
     movie_overview: {
         fontSize: 14,
-        marginTop: 20,
-        paddingHorizontal: 40,
+        marginVertical: 20,
+
     },
     movie_trailer_btn: {
         color: 'white',
         fontWeight: 'bold',
         marginVertical: 10,
-        marginHorizontal: 40,
         borderWidth: 1,
         borderColor: 'white',
         textAlign: 'center',
         paddingVertical: 10,
         borderRadius: 10,
         backgroundColor: '#28282B'
-
-
-
-
-
     }
 })

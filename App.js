@@ -12,7 +12,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <StatusBar />
+      <StatusBar backgroundColor={'black'} />
       <NavigationContainer>
         <HamburgerMenu />
         <Stack.Navigator>
@@ -20,10 +20,6 @@ export default function App() {
           <Stack.Screen name='MovieDetailScreen' component={MovieDetailScreen}
             options={{
               headerShown: false, animation: 'none',
-              headerStyle: {
-                backgroundColor: 'black'
-              },
-              headerTintColor: 'white'
             }} />
           <Stack.Screen name='DiscoverScreen' component={DiscoverScreen} options={{ headerShown: false, animation: 'none' }} />
           <Stack.Screen name='SearchScreen' component={SearchScreen} options={{ headerShown: false, animation: 'none' }} />

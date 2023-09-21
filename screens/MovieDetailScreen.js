@@ -94,18 +94,17 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     movie_genre_container: {
-        flex: 0.4,
+        flex: 0.6,
         flexDirection: 'row',
         alignItems: 'center',
         gap: 4,
-        marginTop: 5,
-
-
+        marginVertical:10
     },
     movie_info_container: {
-        flex: 0.2,
+        flex: 0.3,
         flexDirection: 'row',
         gap: 20,
+
 
     },
     color_gray: {

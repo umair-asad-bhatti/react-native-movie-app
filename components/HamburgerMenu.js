@@ -40,14 +40,17 @@ export default function HamburgerMenu() {
             <View style={[styles.side_menu, !isOpen ? styles.left500 : styles.show]}>
                 <View style={{ flex: 0.05, justifyContent: 'center', alignItems: 'flex-end', padding: 10 }}>
 
-                    <AntDesign onPress={toggleMenu} name="closesquareo" size={30} color="white" />
+                    <AntDesign onPress={toggleMenu} name="close" size={30} color="white" />
                 </View>
-                <View style={{ marginTop: '50%', flex: 0.5, justifyContent: 'center', alignItems: 'center', gap: 10 }}>
+                <View style={{flex: 0.2, justifyContent: 'space-around', alignItems: 'flex-start', gap: 10 }}>
                     <TouchableOpacity onPress={goToHomeScreen} style={styles.menu_item}>
-                        <Text style={styles.menu_item}>HomeScreen</Text>
+                        <Text style={styles.menu_item}>Discover Movies</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={goToDiscoverScreen} style={styles.menu_item}>
-                        <Text style={styles.menu_item}>Discover</Text>
+                        <Text style={styles.menu_item}>Discover TV Shows</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={goToSearchScreen} style={styles.menu_item}>
+                        <Text style={styles.menu_item}>Search Movie</Text>
                     </TouchableOpacity>
                 </View>
             </View >

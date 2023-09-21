@@ -1,10 +1,10 @@
+import React from 'react'
 import { StyleSheet, FlatList, View, Text, TouchableOpacity, TextInput } from 'react-native'
+import { useState, useEffect } from 'react';
+import { MaterialIcons } from '@expo/vector-icons';
 import MovieCard from '../components/MovieCard'
 import Loading from '../components/Loading';
-import React from 'react'
-import { useState, useEffect } from 'react';
 import utility from '../utility/utility';
-import { MaterialIcons } from '@expo/vector-icons';
 
 
 export default function HomeScreen({ navigation }) {
@@ -26,6 +26,7 @@ export default function HomeScreen({ navigation }) {
     useEffect(() => {
         utility.fetchMovies(page).then(r => {
             setMovies(r.results)
+            console.log(movies);
             setLoading(false)
         })
     }, [page, loading])
@@ -37,7 +38,7 @@ export default function HomeScreen({ navigation }) {
 
         <View style={styles.HomeScreen_Container} >
             <View style={{ marginTop: 10, width: '100%', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                < FlatList
+                <FlatList
                     numColumns={'4'}
                     data={movies}
                     renderItem={({ item }) => {
@@ -53,7 +54,6 @@ export default function HomeScreen({ navigation }) {
                     {
                         <TouchableOpacity onPress={prevPage}>
                             <MaterialIcons name="navigate-before" size={30} color="white" />
-
                         </TouchableOpacity>
 
                     }
@@ -61,7 +61,6 @@ export default function HomeScreen({ navigation }) {
 
 
                         <TouchableOpacity onPress={() => setPage(1)}>
-                            {/* <Text style={{ color: 'white' }}>Go to first page</Text> */}
                             <Text style={{ color: 'white', marginTop: 3 }}>{page}</Text>
                         </TouchableOpacity>
 

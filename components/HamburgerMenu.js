@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import { useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -38,19 +39,37 @@ export default function HamburgerMenu() {
             </View>
             {/* side menu */}
             <View style={[styles.side_menu, !isOpen ? styles.left500 : styles.show]}>
-                <View style={{ flex: 0.05, justifyContent: 'center', alignItems: 'flex-end', padding: 10 }}>
+                <View style={{ flex: 0.05, justifyContent: 'center', alignItems: 'flex-start', padding: 10 }}>
 
-                    <AntDesign onPress={toggleMenu} name="close" size={30} color="white" />
+                    <AntDesign onPress={toggleMenu} name="close" size={20} color="white" />
                 </View>
-                <View style={{flex: 0.2, justifyContent: 'space-around', alignItems: 'flex-start', gap: 10 }}>
-                    <TouchableOpacity onPress={goToHomeScreen} style={styles.menu_item}>
+                <View style={{ flex: 0.5, padding: 10, justifyContent: 'space-around', alignItems: 'flex-start', gap: 10 }}>
+                    <TouchableOpacity onPress={goToHomeScreen} style={styles.menu_item} >
+                        <AntDesign name="home" size={25} color="white" />
                         <Text style={styles.menu_item}>Discover Movies</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={goToDiscoverScreen} style={styles.menu_item}>
+                        <Feather name="tv" size={23} color="white" />
                         <Text style={styles.menu_item}>Discover TV Shows</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={goToSearchScreen} style={styles.menu_item}>
+                        <Feather name="search" size={24} color="white" />
                         <Text style={styles.menu_item}>Search Movie</Text>
+                    </TouchableOpacity>
+
+
+
+                    <TouchableOpacity onPress={goToHomeScreen} style={styles.menu_item} >
+                        <AntDesign name="home" size={25} color="white" />
+                        <Text style={styles.menu_item}>Movie Lorem</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={goToDiscoverScreen} style={styles.menu_item}>
+                        <Feather name="tv" size={23} color="white" />
+                        <Text style={styles.menu_item}>Discover lorem</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={goToSearchScreen} style={styles.menu_item}>
+                        <Feather name="search" size={24} color="white" />
+                        <Text style={styles.menu_item}>lorem </Text>
                     </TouchableOpacity>
                 </View>
             </View >
@@ -76,7 +95,7 @@ const styles = StyleSheet.create({
         top: 0,
         left: 0,
         height: '100%',
-        width: 200,
+        width: '70%',
         zIndex: 99999,
         backgroundColor: '#28282B',
 
@@ -91,6 +110,10 @@ const styles = StyleSheet.create({
     menu_item: {
         fontSize: 16,
         color: 'white',
-
+        flex: 1,
+        gap: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     }
 })

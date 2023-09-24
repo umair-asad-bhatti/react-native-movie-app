@@ -7,20 +7,34 @@ import Loading from '../components/Loading';
 import { useNavigation } from '@react-navigation/native';
 import utility from '../utility/utility';//utility having helper functions
 export default function MovieDetailScreen({ route }) {
-    const { id } = route.params
+    const { id, category } = route.params
     const [SingleMovieDetail, setSingleMovieDetail] = useState("")
     const [movieTrailer, setMovieTrailer] = useState("")
     const [loading, setloading] = useState(true)
     const navigation = useNavigation()
     // fetch the details of the movie along with youtube key for trailer
     useEffect(() => {
-        utility.fetchMovieDetail(id).then(r => {
-            setSingleMovieDetail(r)
-            setloading(false)
-        })
-        utility.fetchMovieTrailer(id).then(r => {
-            setMovieTrailer(r.results[0]?.key)
-        })
+        if(category=='tv'){
+            utility.fetchTvDetail(id).then(r => {
+                setSingleMovieDetail(r)
+                setloading(false)
+            })
+            utility.fetchTvTrailer(id).then(r => {
+                console.log(r);
+                setMovieTrailer(r.results[0]?.key)
+            })
+        }
+        else{
+            utility.fetchMovieDetail(id).then(r => {
+                setSingleMovieDetail(r)
+                setloading(false)
+            })
+            utility.fetchMovieTrailer(id).then(r => {
+                console.log(r);
+                setMovieTrailer(r.results[0]?.key)
+            })
+        }
+      
     }, [id])
 
     if (loading) {
@@ -33,7 +47,7 @@ export default function MovieDetailScreen({ route }) {
             <View style={{ flex: 1, marginTop: 20, padding: 10 }}>
 
                 <Image resizeMode='cover' style={{ width: '100%', height: 400 }} source={{ uri: `https://image.tmdb.org/t/p/w500/${SingleMovieDetail.poster_path} ` }} />
-                <Text style={styles.movie_title} >{SingleMovieDetail.title}</Text>
+                <Text style={styles.movie_title} >{SingleMovieDetail.title ? SingleMovieDetail.title : SingleMovieDetail.name}</Text>
                 <A style={{ ...styles.movie_title, fontSize: 12 }} href={SingleMovieDetail.homepage}>
                     {SingleMovieDetail.homepage}
                 </A>
@@ -53,7 +67,7 @@ export default function MovieDetailScreen({ route }) {
                 </View>
                 <View style={styles.movie_info_container}>
                     <View style={{ flex: 1, flexDirection: 'row', gap: 5, alignItems: 'center' }}>
-                        <Text style={styles.color_gray}>{SingleMovieDetail.release_date}</Text>
+                        <Text style={styles.color_gray}>{SingleMovieDetail.release_date ? SingleMovieDetail.release_date : SingleMovieDetail.first_air_date}</Text>
                     </View>
                     <View style={{ flex: 1, flexDirection: 'row', gap: 5, alignItems: 'center' }}>
                         <MaterialIcons name="star-rate" size={20} color="gray" />
@@ -98,7 +112,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         gap: 4,
-        marginVertical:10
+        marginVertical: 10
     },
     movie_info_container: {
         flex: 0.3,

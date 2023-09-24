@@ -7,9 +7,12 @@ import MovieDetailScreen from './screens/MovieDetailScreen';
 import DiscoverScreen from './screens/DiscoverScreen';
 import HamburgerMenu from './components/HamburgerMenu';
 import SearchScreen from './screens/SearchScreen';
+import * as NavigationBar from 'expo-navigation-bar';
 const Stack = createNativeStackNavigator();
-export default function App() {
 
+export default function App() {
+  NavigationBar.setBackgroundColorAsync("black").then((r)=>console.log('color has been set'));
+  // NavigationBar.setVisibilityAsync("hidden");
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={'black'} />

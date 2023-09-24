@@ -41,7 +41,7 @@ export default function HamburgerMenu() {
             <View style={[styles.side_menu, !isOpen ? styles.left500 : styles.show]}>
                 <View style={{ flex: 0.05, justifyContent: 'center', alignItems: 'flex-start', padding: 10 }}>
 
-                    <AntDesign onPress={toggleMenu} name="close" size={20} color="white" />
+                    <AntDesign onPress={toggleMenu} name="close" size={30} color="white" />
                 </View>
                 <View style={{ flex: 0.5, padding: 10, justifyContent: 'space-around', alignItems: 'flex-start', gap: 10 }}>
                     <TouchableOpacity onPress={goToHomeScreen} style={styles.menu_item} >
@@ -80,7 +80,8 @@ const styles = StyleSheet.create({
     header_container: {
         height: 35,
         paddingHorizontal: 20,
-
+        marginTop:10,
+    
     },
     header_menu: {
         flex: 1,

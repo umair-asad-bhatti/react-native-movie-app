@@ -14,27 +14,14 @@ export default function MovieDetailScreen({ route }) {
     const navigation = useNavigation()
     // fetch the details of the movie along with youtube key for trailer
     useEffect(() => {
-        if(category=='tv'){
-            utility.fetchTvDetail(id).then(r => {
-                setSingleMovieDetail(r)
-                setloading(false)
-            })
-            utility.fetchTvTrailer(id).then(r => {
-                console.log(r);
-                setMovieTrailer(r.results[0]?.key)
-            })
-        }
-        else{
-            utility.fetchMovieDetail(id).then(r => {
-                setSingleMovieDetail(r)
-                setloading(false)
-            })
-            utility.fetchMovieTrailer(id).then(r => {
-                console.log(r);
-                setMovieTrailer(r.results[0]?.key)
-            })
-        }
-      
+        utility.fetchMovieOrTvDetail(id, category).then(r => {
+            setSingleMovieDetail(r)
+            setloading(false)
+
+        })
+        utility.fetchMovieOrTvTrailer(id, category).then(r => {
+            setMovieTrailer(r.results[0]?.key)
+        })
     }, [id])
 
     if (loading) {

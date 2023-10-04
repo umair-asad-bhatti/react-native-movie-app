@@ -26,13 +26,11 @@ export default function HomeScreen() {
         }
     }
     useEffect(() => {
-        active_category == 'movie' ? utility.fetchMovies(page).then(r => {
-            setMovies(r.results)
-            setLoading(false)
-        }) : utility.fetchTvShows(page).then(r => {
+        utility.fetchMoviesOrTv(page, active_category).then(r => {
             setMovies(r.results)
             setLoading(false)
         })
+
     }, [page, loading, active_category])
 
     return (

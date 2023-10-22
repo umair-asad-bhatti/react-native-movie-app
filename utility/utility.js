@@ -18,5 +18,10 @@ export default utility = {
         return data;
 
     },
-
+    fetchSearchedMovieOrTv: async (searchQuery, category) => {
+        const uri = `https://api.themoviedb.org/3/search/${category}?query=${searchQuery}&api_key=115a80b1f5855a7a34cb5deeeefee1a2`
+        const response = await fetch(uri);
+        const data = await response.json()
+        return data;
+    }
 }

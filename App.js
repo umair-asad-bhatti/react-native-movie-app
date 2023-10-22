@@ -15,7 +15,7 @@ export default function App() {
   // NavigationBar.setVisibilityAsync("hidden");
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor={'black'} />
+      <StatusBar barStyle={'light-content'} backgroundColor={'black'} />
       <NavigationContainer>
         <HamburgerMenu />
         <Stack.Navigator>

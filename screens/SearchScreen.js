@@ -16,11 +16,14 @@ export default function SearchScreen() {
     })
   }, [searchQuery, active_category])
   if (loading) {
-    return <Loading />
+    return <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'black' }}>
+
+      <Loading />
+    </View>
   }
   return (
     <>
-      <View style={{paddingHorizontal:20, paddingVertical: 10, backgroundColor: 'black', gap: 10, flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center' }}>
+      <View style={{ paddingHorizontal: 20, paddingVertical: 10, backgroundColor: 'black', gap: 10, flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center' }}>
         <TouchableOpacity onPress={() => { setMovies([]); setActive_category('movie'); setLoading(true) }} style={[styles.btn_container, active_category == 'movie' ? styles.active_btn : '']}><Text style={{ color: 'white', textAlign: 'center' }}>Movies</Text></TouchableOpacity>
         <TouchableOpacity onPress={() => { setMovies([]); setActive_category('tv'); setLoading(true) }} style={[styles.btn_container, active_category == 'tv' ? styles.active_btn : '']}><Text style={{ color: 'white', textAlign: 'center' }}>TV Shows</Text></TouchableOpacity>
       </View >

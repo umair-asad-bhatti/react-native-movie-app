@@ -25,8 +25,10 @@ export default function MovieDetailScreen({ route }) {
     }, [id])
 
     if (loading) {
-        return (
-            <Loading />
+        return (<View style={{ flex: 1, backgroundColor: 'black', alignItems: 'center', justifyContent: 'center' }}>
+
+            <Loading size={'large'} />
+        </View>
         )
     }
     return (
